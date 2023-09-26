@@ -7,26 +7,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      uses: haskell-actions/setup@v2.4.7
-      with:
-        # Version of GHC to use. If set to "latest", it will always get the latest stable version. If set to "head", it will always get the latest build of GHC.
-        ghc-version: # optional, default is latest
-        # Version of Cabal to use. If set to "latest", it will always get the latest stable version.
-        cabal-version: # optional, default is latest
-        # Version of Stack to use. If set to "latest", it will always get the latest stable version.
-        stack-version: # optional, default is latest
-        # If specified, will setup Stack.
-        enable-stack: # optional
-        # If specified, enable-stack must be set. Prevents installing GHC and Cabal globally.
-        stack-no-global: # optional
-        # If specified, enable-stack must be set. Will run stack setup to install the specified GHC.
-        stack-setup-ghc: # optional
-        # Set to `false` to prevent `cabal update` from being run.
-        cabal-update: # optional, default is true
-        # A release channel URL to add to ghcup via `ghcup config add-release-channel`.
-        ghcup-release-channel: # optional
-        # If specified, disables match messages from GHC as GitHub CI annotations.
-        disable-matcher: # optional
+    - uses: actions/checkout@v2
+      with: { path: repo } 
+    - uses: haskell-actions/setup@v2.4.7
     - name: install
       run: |
         stack install hakyll
