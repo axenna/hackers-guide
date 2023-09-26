@@ -1,10 +1,8 @@
---------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
 import           Hakyll
 
 
---------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
     match "images/*" $ do
@@ -18,6 +16,11 @@ main = hakyll $ do
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
+            -- >>= loadAndApplyTemplate "templates/post.html"    previewCtx
+            -- >>= loadAndApplyTemplate "templates/default.html" previewCtx
+            -- >>= relativizeUrls
+
+
 
     match "index.html" $ do
         route idRoute
@@ -34,8 +37,6 @@ main = hakyll $ do
 
     match "templates/*" $ compile templateBodyCompiler
 
-
---------------------------------------------------------------------------------
 previewCtx :: Context String
 previewCtx =
     (mapContext (take 200) (bodyField "preview")) <>
