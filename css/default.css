@@ -1,6 +1,7 @@
 :root {
     --fg: #1e1e2e;
     --bg: #181825;
+    --bg-darker: #11111b;
     --red: #c4524c;
     --purple: #cba6f7;
     --yellow: #f9e2f8;
@@ -40,37 +41,52 @@ body {
 }
 
 .previews {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 16rem;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
     padding: .5rem;
-    border-radius: .5rem;
-    background-color: var(--fg);
+    border-radius: 1rem;
+    background-color: var(--bg-darker);
 }
 
 .preview h1 {
+    margin-bottom: 1rem;
+    padding-left: .5rem;
     color: var(--pink);
 }
 
-.preview p {
+.preview .inner {
+    padding: .5rem;
     color: var(--yellow);
+    background-color: var(--fg);
+    border-radius: .5rem;
 }
 
 .about {
-    width: 15rem;
-    padding: 1rem;
+    width: 25rem;
+    padding: .4rem;
     border-radius: 1rem;
-    background-color: var(--fg);
+    background-color: var(--purple);
 }
 
 .about h1 {
-    color: var(--purple);
+    padding: .5rem;
+    font-size: 2rem;
+    margin-bottom: .5rem;
+    color: var(--yellow);
+    background-color: var(--red);
+    border-radius: 1rem;
 }
 
 .about p {
-    color: var(--yellow);
+    font-size: 1rem;
+    color: var(--bg-darker);
 }
