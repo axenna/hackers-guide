@@ -16,18 +16,16 @@ main = hakyll $ do
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
-            -- >>= loadAndApplyTemplate "templates/post.html"    previewCtx
-            -- >>= loadAndApplyTemplate "templates/default.html" previewCtx
-            -- >>= relativizeUrls
-
-
+            >>= saveSnapshot "content"
+            >>= loadAndApplyTemplate "templates/post.html" defaultContext
+            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= relativizeUrls
 
     match "index.html" $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
             let indexCtx =
-                    listField "posts" previewCtx (return posts) <>
+                    listField "posts" teaserCtx (loadAllSnapshots "posts/*" "content") <>
                     defaultContext
 
             getResourceBody
@@ -37,7 +35,7 @@ main = hakyll $ do
 
     match "templates/*" $ compile templateBodyCompiler
 
-previewCtx :: Context String
-previewCtx =
-    (mapContext (take 200) (bodyField "preview")) <>
+teaserCtx :: Context String
+teaserCtx =
+    field "teaser" (pure . (++ "...") . take 200 . itemBody) <>
     defaultContext
